@@ -1,7 +1,7 @@
 import { h, defineComponent, computed, ref, type CSSProperties } from 'vue'
 import { NAffix } from '../../affix'
 import { affixProps, affixPropKeys } from '../../affix/src/Affix'
-import { useConfig, useTheme, useThemeClass } from '../../_mixins'
+import { useConfig, useTheme, useThemeClass, useRtl } from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import type { ExtractPublicPropTypes } from '../../_utils'
 import { keep } from '../../_utils'
@@ -28,7 +28,8 @@ export default defineComponent({
   name: 'Anchor',
   props: anchorProps,
   setup (props, { slots }) {
-    const { mergedClsPrefixRef, inlineThemeDisabled } = useConfig(props)
+    const { mergedClsPrefixRef, inlineThemeDisabled, mergedRtlRef } =
+      useConfig(props)
     const themeRef = useTheme(
       'Anchor',
       '-anchor',
@@ -73,6 +74,8 @@ export default defineComponent({
     const themeClassHandle = inlineThemeDisabled
       ? useThemeClass('anchor', undefined, cssVarsRef, props)
       : undefined
+
+    const rtlEnabledRef = useRtl('Anchor', mergedRtlRef, mergedClsPrefixRef)
     return {
       scrollTo (href: string) {
         anchorRef.value?.setActiveHref(href)
@@ -87,7 +90,10 @@ export default defineComponent({
                 ? undefined
                 : (cssVarsRef.value as CSSProperties)
             }
-            class={themeClassHandle?.themeClass.value}
+            class={[
+              themeClassHandle?.themeClass.value,
+              rtlEnabledRef?.value && `${mergedClsPrefixRef.value}-anchor--rtl`
+            ]}
             {...keep(props, baseAnchorPropKeys)}
             mergedClsPrefix={mergedClsPrefixRef.value}
           >
