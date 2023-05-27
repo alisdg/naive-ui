@@ -28,7 +28,13 @@ import type {
   SelectGroupOption,
   SelectIgnoredOption
 } from '../../select/src/interface'
-import { useFormItem, useTheme, useConfig, useThemeClass } from '../../_mixins'
+import {
+  useFormItem,
+  useTheme,
+  useConfig,
+  useThemeClass,
+  useRtl
+} from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import {
   call,
@@ -129,7 +135,8 @@ export default defineComponent({
       mergedBorderedRef,
       namespaceRef,
       mergedClsPrefixRef,
-      inlineThemeDisabled
+      inlineThemeDisabled,
+      mergedRtlRef
     } = useConfig(props)
     const formItem = useFormItem(props)
     const { mergedSizeRef, mergedDisabledRef, mergedStatusRef } = formItem
@@ -153,6 +160,13 @@ export default defineComponent({
       props,
       mergedClsPrefixRef
     )
+
+    const rtlEnabledRef = useRtl(
+      'AutoComplete',
+      mergedRtlRef,
+      mergedClsPrefixRef
+    )
+
     const selectOptionsRef = computed(() => {
       return mapAutoCompleteOptionsToSelectOptions(props.options)
     })
@@ -328,14 +342,18 @@ export default defineComponent({
       onRender: themeClassHandle?.onRender,
       mergedBordered: mergedBorderedRef,
       namespace: namespaceRef,
-      mergedClsPrefix: mergedClsPrefixRef
+      mergedClsPrefix: mergedClsPrefixRef,
+      rtlEnabled: rtlEnabledRef
     }
   },
   render () {
     const { mergedClsPrefix } = this
     return (
       <div
-        class={`${mergedClsPrefix}-auto-complete`}
+        class={[
+          `${mergedClsPrefix}-auto-complete`,
+          this.rtlEnabled && `${mergedClsPrefix}-auto-complete--rtl`
+        ]}
         ref="triggerElRef"
         onKeydown={this.handleKeyDown}
         onCompositionstart={this.handleCompositionStart}
@@ -418,6 +436,8 @@ export default defineComponent({
                               auto-pending
                               class={[
                                 `${mergedClsPrefix}-auto-complete-menu`,
+                                this.rtlEnabled &&
+                                  `${mergedClsPrefix}-auto-complete-menu--rtl`,
                                 this.themeClass,
                                 menuProps?.class
                               ]}

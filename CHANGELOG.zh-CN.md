@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Next_Version
+
+### Feats
+
+- `n-auto-complete` 支持 RTL.
+
 ## 2.34.4
 
 ### Fixes

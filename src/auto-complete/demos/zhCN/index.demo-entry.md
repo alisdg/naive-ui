@@ -13,6 +13,7 @@ after-select.vue
 show-options-by-value.vue
 customized-rendering.vue
 status.vue
+rtl-debug.vue
 ```
 
 ## API
