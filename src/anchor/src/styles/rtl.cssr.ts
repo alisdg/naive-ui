@@ -41,7 +41,7 @@ export default cB('anchor', [
       left: unset;
     `)
     ]),
-    cB('anchor-link', 'padding: 0 16px 0 0;', // we have to override `padding: var(--n-link-padding)`.TODO: this should be something like a css variable like --n-link-padding-rtl or something. another approach is to define a variable --n-link-padding-base: 16px and use it in both rtl and ltr variables.
+    cB('anchor-link', 'padding: 0 16px 0 0;', // override `padding: var(--n-link-padding)`. but this should be something like --n-link-padding-rtl or something. better approach is to define a variable like --n-link-padding-base: 16px and use it in both rtl and ltr variables.
       [
         cE('title', `
       text-align: right;
