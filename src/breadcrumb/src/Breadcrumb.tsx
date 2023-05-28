@@ -7,7 +7,7 @@ import {
   type Ref,
   toRef
 } from 'vue'
-import { useConfig, useTheme, useThemeClass } from '../../_mixins'
+import { useConfig, useTheme, useThemeClass, useRtl } from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import { breadcrumbLight } from '../styles'
 import type { BreadcrumbTheme } from '../styles'
@@ -36,7 +36,8 @@ export default defineComponent({
   name: 'Breadcrumb',
   props: breadcrumbProps,
   setup (props) {
-    const { mergedClsPrefixRef, inlineThemeDisabled } = useConfig(props)
+    const { mergedClsPrefixRef, inlineThemeDisabled, mergedRtlRef } =
+      useConfig(props)
     const themeRef = useTheme(
       'Breadcrumb',
       '-breadcrumb',
@@ -84,18 +85,27 @@ export default defineComponent({
     const themeClassHandle = inlineThemeDisabled
       ? useThemeClass('breadcrumb', undefined, cssVarsRef, props)
       : undefined
+
+    const rtlEnabledRef = useRtl('Breadcrumb', mergedRtlRef, mergedClsPrefixRef)
+
     return {
       mergedClsPrefix: mergedClsPrefixRef,
       cssVars: inlineThemeDisabled ? undefined : cssVarsRef,
       themeClass: themeClassHandle?.themeClass,
-      onRender: themeClassHandle?.onRender
+      onRender: themeClassHandle?.onRender,
+      rtlEnabled: rtlEnabledRef
     }
   },
   render () {
+    const { mergedClsPrefix } = this
     this.onRender?.()
     return (
       <nav
-        class={[`${this.mergedClsPrefix}-breadcrumb`, this.themeClass]}
+        class={[
+          `${mergedClsPrefix}-breadcrumb`,
+          this.themeClass,
+          this.rtlEnabled && `${mergedClsPrefix}-breadcrumb--rtl`
+        ]}
         style={this.cssVars as CSSProperties}
         aria-label="Breadcrumb"
       >

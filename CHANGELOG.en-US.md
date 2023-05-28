@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## NEXT_VERSION
+
+### Feats
+
+- `n-breadcrumb` supports RTL
+
 ## 2.34.4
 
 ### Fixes
