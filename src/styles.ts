@@ -15,7 +15,10 @@ export {
   buttonGroupRtl as unstableButtonGroupRtl
 } from './button-group/styles'
 export { cardDark, cardRtl as unstableCardRtl } from './card/styles'
-export { cascaderDark } from './cascader/styles'
+export {
+  cascaderDark,
+  cascaderRtl as unstableCascaderRtl
+} from './cascader/styles'
 export {
   checkboxDark,
   checkboxRtl as unstableCheckboxRtl

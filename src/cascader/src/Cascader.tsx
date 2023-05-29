@@ -37,7 +37,8 @@ import {
   useTheme,
   useConfig,
   useFormItem,
-  useThemeClass
+  useThemeClass,
+  useRtl
 } from '../../_mixins'
 import type { ThemeProps } from '../../_mixins'
 import {
@@ -197,7 +198,8 @@ export default defineComponent({
       mergedBorderedRef,
       mergedClsPrefixRef,
       namespaceRef,
-      inlineThemeDisabled
+      inlineThemeDisabled,
+      mergedRtlRef
     } = useConfig(props)
     const themeRef = useTheme(
       'Cascader',
@@ -207,6 +209,7 @@ export default defineComponent({
       props,
       mergedClsPrefixRef
     )
+    const rtlEnabledRef = useRtl('Cascader', mergedRtlRef, mergedClsPrefixRef)
     const { localeRef } = useLocale('Cascader')
     const uncontrolledValueRef = ref(props.defaultValue)
     const controlledValueRef = computed(() => props.value)
@@ -735,13 +738,21 @@ export default defineComponent({
         case 'ArrowLeft':
           e.preventDefault()
           if (mergedShowRef.value && !showSelectMenuRef.value) {
-            move('parent')
+            if (rtlEnabledRef?.value) {
+              move('child')
+            } else {
+              move('parent')
+            }
           }
           break
         case 'ArrowRight':
           e.preventDefault()
           if (mergedShowRef.value && !showSelectMenuRef.value) {
-            move('child')
+            if (rtlEnabledRef?.value) {
+              move('parent')
+            } else {
+              move('child')
+            }
           }
           break
         case 'Escape':
@@ -882,7 +893,8 @@ export default defineComponent({
       closeMenu,
       handleSelectMenuClickOutside,
       handleCascaderMenuClickOutside,
-      clearPattern
+      clearPattern,
+      rtlEnabledRef
     })
     const exposedMethods: CascaderInst = {
       focus: () => {
@@ -986,6 +998,7 @@ export default defineComponent({
       selectedOptions: selectedOptionsRef,
       adjustedTo: adjustedToRef,
       menuModel: menuModelRef,
+      rtlEnabled: rtlEnabledRef,
       handleMenuTabout,
       handleMenuFocus,
       handleMenuBlur,
@@ -1009,7 +1022,12 @@ export default defineComponent({
   render () {
     const { mergedClsPrefix } = this
     return (
-      <div class={`${mergedClsPrefix}-cascader`}>
+      <div
+        class={[
+          `${mergedClsPrefix}-cascader`,
+          this.rtlEnabled && `${mergedClsPrefix}-cascader--rtl`
+        ]}
+      >
         <VBinder>
           {{
             default: () => [
@@ -1071,7 +1089,12 @@ export default defineComponent({
                       <CascaderMenu
                         {...menuProps}
                         ref="cascaderMenuInstRef"
-                        class={[this.themeClass, menuProps?.class]}
+                        class={[
+                          this.themeClass,
+                          menuProps?.class,
+                          this.rtlEnabled &&
+                            `${mergedClsPrefix}-cascader-menu--rtl`
+                        ]}
                         value={this.mergedValue}
                         show={this.mergedShow && !this.showSelectMenu}
                         menuModel={this.menuModel}
@@ -1112,7 +1135,12 @@ export default defineComponent({
                       <CascaderSelectMenu
                         {...filterMenuProps}
                         ref="selectMenuInstRef"
-                        class={[this.themeClass, filterMenuProps?.class]}
+                        class={[
+                          this.themeClass,
+                          filterMenuProps?.class,
+                          this.rtlEnabled &&
+                            `${mergedClsPrefix}-cascader-menu--rtl`
+                        ]}
                         value={this.mergedValue}
                         show={this.mergedShow && this.showSelectMenu}
                         pattern={this.pattern}

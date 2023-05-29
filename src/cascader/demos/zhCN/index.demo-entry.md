@@ -17,7 +17,7 @@ custom-field.vue
 custom-render.vue
 focus.vue
 status.vue
-default-value-debug.vue
+rtl-debug.vue
 ```
 
 ## API

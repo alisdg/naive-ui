@@ -4,6 +4,7 @@ import type { NLocale } from '../../locales'
 import type { CascaderTheme } from '../styles'
 import type { Ref, Slots, VNodeChild } from 'vue'
 import { createInjectionKey } from '../../_utils'
+import { type RtlItem } from '../../config-provider/src/internal-interface'
 
 export type ValueAtom = string | number
 export type Value = ValueAtom | ValueAtom[]
@@ -94,6 +95,7 @@ export interface CascaderInjection {
   ((option: CascaderOption, checked: boolean) => VNodeChild) | undefined
   >
   clearPattern: () => void
+  rtlEnabledRef: Ref<RtlItem | undefined> | undefined
 }
 
 export interface CascaderSubmenuInstance {

@@ -9,7 +9,11 @@ import {
 import { useMemo } from 'vooks'
 import { NCheckbox } from '../../checkbox'
 import { NBaseLoading, NBaseIcon } from '../../_internal'
-import { ChevronRightIcon, CheckmarkIcon } from '../../_internal/icons'
+import {
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  CheckmarkIcon
+} from '../../_internal/icons'
 import { cascaderInjectionKey, type TmNode } from './interface'
 import { happensIn } from 'seemly'
 
@@ -46,7 +50,8 @@ export default defineComponent({
       closeMenu,
       doCheck,
       doUncheck,
-      renderLabelRef
+      renderLabelRef,
+      rtlEnabledRef
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     } = inject(cascaderInjectionKey)!
     const valueRef = computed(() => props.tmNode.key)
@@ -171,7 +176,8 @@ export default defineComponent({
       handleCheckboxUpdateValue,
       mergedHandleMouseEnter: mergedHandleMouseEnterRef,
       mergedHandleMouseMove: mergedHandleMouseMoveRef,
-      renderLabel: renderLabelRef
+      renderLabel: renderLabelRef,
+      rtlEnabled: rtlEnabledRef
     }
   },
   render () {
@@ -229,7 +235,12 @@ export default defineComponent({
                       class={`${mergedClsPrefix}-cascader-option-icon ${mergedClsPrefix}-cascader-option-icon--arrow`}
                     >
                       {{
-                        default: () => <ChevronRightIcon />
+                        default: () =>
+                          this.rtlEnabled ? (
+                            <ChevronLeftIcon />
+                          ) : (
+                            <ChevronRightIcon />
+                          )
                       }}
                     </NBaseIcon>
                   )

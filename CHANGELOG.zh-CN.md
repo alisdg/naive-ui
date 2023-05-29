@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## NEXT_VERSION
+
+### Feats
+
+- `n-cascader` 支持 RTL
+
 ## 2.34.4
 
 ### Fixes
