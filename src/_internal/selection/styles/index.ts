@@ -4,3 +4,4 @@ export type {
   InternalSelectionTheme,
   InternalSelectionThemeVars
 } from './light'
+export { internalSelectionRtl } from './rtl'

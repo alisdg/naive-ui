@@ -97,5 +97,8 @@ export { rowRtl as unstableRowRtl } from './legacy-grid/styles'
 // danger zone, internal styles
 export { scrollbarDark } from './_internal/scrollbar/styles'
 export { internalSelectMenuDark } from './_internal/select-menu/styles'
-export { internalSelectionDark } from './_internal/selection/styles'
+export {
+  internalSelectionDark,
+  internalSelectionRtl as unstableInternalSelectionRtl
+} from './_internal/selection/styles'
 export { scrollbarRtl as unstableScrollbarRtl } from './_internal/scrollbar/styles'

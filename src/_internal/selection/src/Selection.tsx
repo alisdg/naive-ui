@@ -25,7 +25,7 @@ import type { FormValidationStatus } from '../../../form/src/interface'
 import type { TagRef } from '../../../tag/src/Tag'
 import { NPopover } from '../../../popover'
 import { NTag } from '../../../tag'
-import { useThemeClass, useTheme } from '../../../_mixins'
+import { useThemeClass, useTheme, useRtl, useConfig } from '../../../_mixins'
 import type { ThemeProps } from '../../../_mixins'
 import {
   createKey,
@@ -135,6 +135,13 @@ export default defineComponent({
       props,
       toRef(props, 'clsPrefix')
     )
+    const { mergedRtlRef } = useConfig(props)
+    const rtlEnabledRef = useRtl(
+      'InternalSelection',
+      mergedRtlRef,
+      toRef(props, 'clsPrefix')
+    )
+
     const mergedClearableRef = computed(() => {
       return (
         props.clearable && !props.disabled && (hoverRef.value || props.active)
@@ -510,6 +517,7 @@ export default defineComponent({
       selected: selectedRef,
       showTagsPanel: showTagsPopoverRef,
       isComposing: isComposingRef,
+      rtlEnabled: rtlEnabledRef,
       // dom ref
       counterRef,
       counterWrapperRef,
@@ -913,6 +921,7 @@ export default defineComponent({
           `${clsPrefix}-base-selection`,
           this.themeClass,
           status && `${clsPrefix}-base-selection--${status}-status`,
+          this.rtlEnabled && `${clsPrefix}-base-selection--rtl`,
           {
             [`${clsPrefix}-base-selection--active`]: this.active,
             [`${clsPrefix}-base-selection--selected`]:
