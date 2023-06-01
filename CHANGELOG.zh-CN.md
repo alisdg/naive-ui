@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## NEXT_VERSION
+
+### Feats
+
+- `internal-select` Rtl support.
+
 ## 2.34.4
 
 ### Fixes

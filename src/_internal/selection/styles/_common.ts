@@ -1,6 +1,8 @@
 export default {
   paddingSingle: '0 26px 0 12px',
+  paddingSingleRtl: '0 12px 0 26px',
   paddingMultiple: '3px 26px 0 12px',
+  paddingMultipleRtl: '3px 12px 0 26px',
   clearSize: '16px',
   arrowSize: '16px'
 }
