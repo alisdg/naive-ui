@@ -52,6 +52,7 @@ export default defineComponent({
           linkFontSize,
           railWidth,
           linkPadding,
+          linkPaddingRtl,
           borderRadius
         },
         common: { cubicBezierEaseInOut }
@@ -65,6 +66,7 @@ export default defineComponent({
         '--n-link-text-color-active': linkTextColorActive,
         '--n-link-text-color-pressed': linkTextColorPressed,
         '--n-link-padding': linkPadding,
+        '--n-link-padding-rtl': linkPaddingRtl,
         '--n-bezier': cubicBezierEaseInOut,
         '--n-rail-color': railColor,
         '--n-rail-color-active': railColorActive,

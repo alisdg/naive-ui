@@ -1,5 +1,8 @@
 import { c, cE, cB, cM, cNotM } from '../../../_utils/cssr'
 
+// vars
+// --n-link-padding-rtl
+
 export default cB('anchor', [
   cM('rtl', `
         direction: rtl;
@@ -41,7 +44,7 @@ export default cB('anchor', [
       left: unset;
     `)
     ]),
-    cB('anchor-link', 'padding: 0 16px 0 0;', // override `padding: var(--n-link-padding)`. but this should be something like --n-link-padding-rtl or something. better approach is to define a variable like --n-link-padding-base: 16px and use it in both rtl and ltr variables.
+    cB('anchor-link', 'var(--n-link-padding-rtl)',
       [
         cE('title', `
       text-align: right;
